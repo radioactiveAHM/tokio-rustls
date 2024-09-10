@@ -9,13 +9,13 @@ readme = "README.md"
 description = "Asynchronous TLS/SSL streams for Tokio using Rustls."
 categories = ["asynchronous", "cryptography", "network-programming"]
 edition = "2021"
-rust-version = "1.63"
+rust-version = "1.81.0"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
-tokio = "1.0"
-rustls = { version = "0.23", default-features = false, features = ["std", "brotli", "std"] }
-pki-types = { package = "rustls-pki-types", version = "1" }
+tokio = "1.40.0"
+rustls = { version = "0.23.13", default-features = false, features = ["std", "brotli", "std"] }
+pki-types = { package = "rustls-pki-types", version = "1.8.0" }
 brotli = "6.0.0"
 brotli-decompressor = "4.0.1"
 
@@ -30,10 +30,10 @@ ring = ["rustls/ring"]
 tls12 = ["rustls/tls12"]
 
 [dev-dependencies]
-argh = "0.1.1"
-rcgen = { version = "0.13", features = ["pem"] }
-tokio = { version = "1.0", features = ["full"] }
-futures-util = "0.3.1"
-lazy_static = "1.1"
-webpki-roots = "0.26"
-rustls-pemfile = "2"
+argh = "0.1.12"
+rcgen = { version = "0.13.1", features = ["pem"] }
+tokio = { version = "1.40.0", features = ["full"] }
+futures-util = "0.3.30"
+lazy_static = "1.5.0"
+webpki-roots = "0.26.5"
+rustls-pemfile = "2.1.3"
