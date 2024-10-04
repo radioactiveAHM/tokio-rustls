@@ -14,9 +14,9 @@ exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
 tokio = "1.40.0"
-rustls = { version = "0.23.13", default-features = false, features = ["std", "brotli", "std"] }
-pki-types = { package = "rustls-pki-types", version = "1.8.0" }
-brotli = "6.0.0"
+rustls = { version = "0.23.14", default-features = false, features = ["std", "brotli", "std"] }
+pki-types = { package = "rustls-pki-types", version = "1.9.0" }
+brotli = "7.0.0"
 brotli-decompressor = "4.0.1"
 
 [features]
@@ -35,5 +35,5 @@ rcgen = { version = "0.13.1", features = ["pem"] }
 tokio = { version = "1.40.0", features = ["full"] }
 futures-util = "0.3.30"
 lazy_static = "1.5.0"
-webpki-roots = "0.26.5"
-rustls-pemfile = "2.1.3"
+webpki-roots = "0.26.6"
+rustls-pemfile = "2.2.0"
