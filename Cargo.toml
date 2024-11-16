@@ -13,8 +13,8 @@ rust-version = "1.81.0"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
-tokio = "1.41.0"
-rustls = { version = "0.23.16", default-features = false, features = ["std", "brotli", "std"] }
+tokio = "1.41.1"
+rustls = { version = "0.23.17", default-features = false, features = ["std", "brotli", "std"] }
 pki-types = { package = "rustls-pki-types", version = "1.10.0" }
 brotli = "7.0.0"
 brotli-decompressor = "4.0.1"
@@ -32,7 +32,7 @@ tls12 = ["rustls/tls12"]
 [dev-dependencies]
 argh = "0.1.12"
 rcgen = { version = "0.13.1", features = ["pem"] }
-tokio = { version = "1.41.0", features = ["full"] }
+tokio = { version = "1.41.1", features = ["full"] }
 futures-util = "0.3.31"
 lazy_static = "1.5.0"
 webpki-roots = "0.26.6"
