@@ -12,11 +12,11 @@ edition = "2021"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
-rustls = { version = "0.23", default-features = false, features = ["ring"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std"] }
 tokio = "1"
 
 [features]
-default = ["logging", "tls12", "aws_lc_rs"]
+default = ["logging", "tls12", "ring"]
 aws_lc_rs = ["rustls/aws_lc_rs"]
 aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
 early-data = []

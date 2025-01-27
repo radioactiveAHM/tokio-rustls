@@ -155,7 +155,7 @@ impl TlsConnector {
     }
     pub fn connect_with_stream<IO, F>(
         &self,
-        domain: pki_types::ServerName<'static>,
+        domain: rustls::pki_types::ServerName<'static>,
         mut stream: IO,
         f: F,
     ) -> Connect<IO>
