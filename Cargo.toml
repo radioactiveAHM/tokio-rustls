@@ -9,15 +9,14 @@ readme = "README.md"
 description = "Asynchronous TLS/SSL streams for Tokio using Rustls."
 categories = ["asynchronous", "cryptography", "network-programming"]
 edition = "2021"
-rust-version = "1.71"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
-rustls = { version = "0.23.22", default-features = false, features = ["std"] }
-tokio = "1.0"
+rustls = { version = "0.23", default-features = false, features = ["ring", "std"] }
+tokio = "1"
 
 [features]
-default = ["logging", "tls12", "aws_lc_rs"]
+default = ["tls12", "ring"]
 aws_lc_rs = ["rustls/aws_lc_rs"]
 aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
 early-data = []
@@ -27,9 +26,9 @@ ring = ["rustls/ring"]
 tls12 = ["rustls/tls12"]
 
 [dev-dependencies]
-argh = "0.1.1"
-futures-util = "0.3.1"
-lazy_static = "1.1"
+argh = "0.1"
+futures-util = "0.3"
+lazy_static = "1"
 rcgen = { version = "0.13", features = ["pem"] }
-tokio = { version = "1.0", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
 webpki-roots = "0.26"
