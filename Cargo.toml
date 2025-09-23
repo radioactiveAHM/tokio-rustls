@@ -13,16 +13,15 @@ rust-version = "1.71"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
-rustls = { version = "0.23", default-features = false, features = ["std"] }
+rustls = { version = "0.23", default-features = false, features = ["std", "tls12"] }
 tokio = "1"
 
 [features]
-default = ["tls12", "ring"]
+prefer-post-quantum = ["rustls/prefer-post-quantum"]
+brotli = ["rustls/brotli"]
 aws_lc_rs = ["rustls/aws_lc_rs"]
 aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
 early-data = []
-fips = ["rustls/fips"]
-logging = ["rustls/logging"]
 ring = ["rustls/ring"]
 tls12 = ["rustls/tls12"]
 
