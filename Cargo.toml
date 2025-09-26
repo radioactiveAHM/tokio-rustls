@@ -8,8 +8,8 @@ documentation = "https://docs.rs/tokio-rustls"
 readme = "README.md"
 description = "Asynchronous TLS/SSL streams for Tokio using Rustls."
 categories = ["asynchronous", "cryptography", "network-programming"]
-edition = "2021"
-rust-version = "1.71"
+edition = "2024"
+rust-version = "1.90"
 exclude = ["/.github", "/examples", "/scripts"]
 
 [dependencies]
@@ -19,6 +19,8 @@ tokio = "1"
 [features]
 prefer-post-quantum = ["rustls/prefer-post-quantum"]
 brotli = ["rustls/brotli"]
+logging = ["rustls/logging"]
+zlib = ["rustls/zlib"]
 aws_lc_rs = ["rustls/aws_lc_rs"]
 aws-lc-rs = ["aws_lc_rs"] # Alias because Cargo features commonly use `-`
 early-data = []
