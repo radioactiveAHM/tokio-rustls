@@ -46,7 +46,7 @@ impl TlsConnector {
     where
         IO: AsyncRead + AsyncWrite + Unpin,
     {
-        self.connect_impl(domain, stream, None, |_| ())
+        self.connect_impl(domain, stream, None, |_, _| ())
     }
 
     /// Similar to [`Self::connect()`], but calls `f` before performing the handshake.
@@ -62,7 +62,7 @@ impl TlsConnector {
     pub fn connect_with<IO, F>(&self, domain: ServerName<'static>, stream: IO, f: F) -> Connect<IO>
     where
         IO: AsyncRead + AsyncWrite + Unpin,
-        F: FnOnce(&mut ClientConnection),
+        F: FnOnce(&mut ClientConnection, &mut IO),
     {
         self.connect_impl(domain, stream, None, f)
     }
@@ -70,13 +70,13 @@ impl TlsConnector {
     fn connect_impl<IO, F>(
         &self,
         domain: ServerName<'static>,
-        stream: IO,
+        mut stream: IO,
         alpn_protocols: Option<Vec<Vec<u8>>>,
         f: F,
     ) -> Connect<IO>
     where
         IO: AsyncRead + AsyncWrite + Unpin,
-        F: FnOnce(&mut ClientConnection),
+        F: FnOnce(&mut ClientConnection, &mut IO),
     {
         let alpn = alpn_protocols.unwrap_or_else(|| self.inner.alpn_protocols.clone());
         let mut session = match ClientConnection::new_with_alpn(self.inner.clone(), domain, alpn) {
@@ -86,11 +86,11 @@ impl TlsConnector {
                     io: stream,
                     // TODO(eliza): should this really return an `io::Error`?
                     // Probably not...
-                    error: io::Error::new(io::ErrorKind::Other, error),
+                    error: io::Error::other(error),
                 });
             }
         };
-        f(&mut session);
+        f(&mut session, &mut stream);
 
         Connect(MidHandshake::Handshaking(TlsStream {
             io: stream,
@@ -156,7 +156,7 @@ impl TlsConnectorWithAlpn<'_> {
         IO: AsyncRead + AsyncWrite + Unpin,
     {
         self.inner
-            .connect_impl(domain, stream, Some(self.alpn_protocols), |_| ())
+            .connect_impl(domain, stream, Some(self.alpn_protocols), |_, _| ())
     }
 
     /// Similar to [`Self::connect()`], but calls `f` before performing the handshake.
@@ -172,7 +172,7 @@ impl TlsConnectorWithAlpn<'_> {
     pub fn connect_with<IO, F>(self, domain: ServerName<'static>, stream: IO, f: F) -> Connect<IO>
     where
         IO: AsyncRead + AsyncWrite + Unpin,
-        F: FnOnce(&mut ClientConnection),
+        F: FnOnce(&mut ClientConnection, &mut IO),
     {
         self.inner
             .connect_impl(domain, stream, Some(self.alpn_protocols), f)

@@ -65,7 +65,7 @@ impl TlsAcceptor {
                     io: stream,
                     // TODO(eliza): should this really return an `io::Error`?
                     // Probably not...
-                    error: io::Error::new(io::ErrorKind::Other, error),
+                    error: io::Error::other(error),
                 });
             }
         };
@@ -187,8 +187,7 @@ where
             let io = match this.io.as_mut() {
                 Some(io) => io,
                 None => {
-                    return Poll::Ready(Err(io::Error::new(
-                        io::ErrorKind::Other,
+                    return Poll::Ready(Err(io::Error::other(
                         "acceptor cannot be polled after acceptance",
                     )));
                 }
